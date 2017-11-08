@@ -33,7 +33,7 @@
     <!-- 设置Servlet的访问方式 -->
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
     <!-- hibernate4.0必须 -->
