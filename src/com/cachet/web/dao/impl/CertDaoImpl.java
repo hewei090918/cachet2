@@ -2,6 +2,7 @@ package com.cachet.web.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +19,36 @@ public class CertDaoImpl implements CertDao {
     @Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 	
+	public Session getSession() {
+		Session session=sessionFactory.getCurrentSession();
+	    return session;
+	}
+	
 	@Override
 	public void save(Cert cert){
-		 Session session=sessionFactory.getCurrentSession();
-	     session.save(cert);
+	     getSession().save(cert);
 	}
 	
 	@Override
 	public void update(Cert cert){
-		Session session=sessionFactory.getCurrentSession();
-		session.update(cert);
+		getSession().update(cert);
 	}
 
 	@Override
 	public void delete(int certId) {
-		Session session=sessionFactory.getCurrentSession();
-		session.delete(certId);
+		getSession().delete(certId);
 	}
 
 	@Override
 	public Cert get(int certId) {
-		return null;
+		return (Cert) getSession().get(Cert.class, certId);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cert> findAll() {
-		return null;
+		String hql = "from Cert";
+		Query query = getSession().createQuery(hql);
+		return query.list();
 	}
 }

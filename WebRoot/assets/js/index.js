@@ -22,35 +22,35 @@ $(function() {
     $.ajax({
         type: 'POST',
         url: base + '/cert/queryAll.html',
-        success: function (result) {
-        	console.log(result);
+        success: function (data) {
+        	var result = eval('(' + data + ')');
             if(result.status == 1){
                 var data = result.data;
-
                 if(data.length > 0){
                     var arr = new Array();
                     //先整合首页需要展示的所有框框
                     for(var i in data){
-                        var type = data[i].cachetType;
+                        var type = data[i].certType;
+                        console.log("type = " + type);
                         switch (type){
-                            case "1":
-                                arr.push(createObj(data[i].cachetId, data[i].cachetType, data[i].cachetUrl1, data[i].cachetUrl2, data[i].cachetName));
-                                $('#showDiv').append(showDiv('showDouble', data[i].cachetId));
+                            case 1:
+                                arr.push(createObj(data[i].certId, data[i].certType, data[i].certUrl1, data[i].certUrl2, data[i].certName));
+                                $('#showDiv').append(showDiv('showDouble', data[i].certId));
                                 if(i == data.length-1) $('#showDouble').find('.outer').removeAttr('id');
                                 break;
-                            case "2":
-                                arr.push(createObj(data[i].cachetId, data[i].cachetType, data[i].cachetUrl1, data[i].cachetUrl2, data[i].cachetName));
-                                $('#showDiv').append(showDiv('showDouble', data[i].cachetId));
+                            case 2:
+                                arr.push(createObj(data[i].certId, data[i].certType, data[i].certUrl1, data[i].certUrl2, data[i].certName));
+                                $('#showDiv').append(showDiv('showDouble', data[i].certId));
                                 if(i == data.length-1) $('#showDouble').find('.outer').removeAttr('id');
                                 break;
-                            case "3":
-                                arr.push(createObj(data[i].cachetId, data[i].cachetType, data[i].cachetUrl1, data[i].cachetUrl2, data[i].cachetName));
-                                $('#showDiv').append(showDiv('showSingle', data[i].cachetId));
+                            case 3:
+                                arr.push(createObj(data[i].certId, data[i].certType, data[i].certUrl1, data[i].certUrl2, data[i].certName));
+                                $('#showDiv').append(showDiv('showSingle', data[i].certId));
                                 if(i == data.length-1) $('#showSingle').find('.outer').removeAttr('id');
                                 break;
-                            case "4":
-                                arr.push(createObj(data[i].cachetId, data[i].cachetType, data[i].cachetUrl1, data[i].cachetUrl2, data[i].cachetName));
-                                $('#showDiv').append(showDiv('showSingle', data[i].cachetId));
+                            case 4:
+                                arr.push(createObj(data[i].certId, data[i].certType, data[i].certUrl1, data[i].certUrl2, data[i].certName));
+                                $('#showDiv').append(showDiv('showSingle', data[i].certId));
                                 if(i == data.length-1) $('#showSingle').find('.outer').removeAttr('id');
                                 break;
                         }
@@ -62,7 +62,7 @@ $(function() {
                     //在每个框框里填充原始图片
                     for(var i=0; i < arr.length; i++){
                         var type = arr[i].type;
-                        if(type == "1" || type == "2"){
+                        if(type == 1 || type == 2){
                             if(arr[i].url1){
                                 $('#targetId_' + arr[i].id).find('.showFront').replaceWith("<img name='aa'/>");
                                 var src = '/' + arr[i].url1;
@@ -75,7 +75,7 @@ $(function() {
                                 $img = $('#targetId_' + arr[i].id).find('img[name="bb"]');
                                 $img.attr('src', src);
                             }
-                        } else if(type == "3" || type == "4"){
+                        } else if(type == 3 || type == 4){
                             if(arr[i].url1){
                                 $('#targetId_' + arr[i].id).find('.showOne').replaceWith("<img name='cc'/>")
                                 var src = '/' + arr[i].url1;
@@ -91,7 +91,7 @@ $(function() {
                     setTimeout(function () {
                         for(var i=0; i < arr.length; i++){
                             var type = arr[i].type;
-                            if(type == "1" || type == "2"){
+                            if(type == 1 || type == 2){
                                 if(arr[i].url1){
                                     $img = $('#targetId_' + arr[i].id).find('img[name="aa"]');
                                     editActive($img.parent(), arr[i].id);//显示悬浮编辑栏
@@ -107,7 +107,7 @@ $(function() {
 
                                 }
 
-                            }else if(type == "3" || type == "4"){
+                            }else if(type == 3 || type == 4){
                                 if(arr[i].url1){
                                     $img = $('#targetId_' + arr[i].id).find('img[name="cc"]');
                                     editActive($img.parent(), arr[i].id);//显示悬浮编辑栏
@@ -142,15 +142,15 @@ $(function() {
                 if($(".file_edit").length>0){
                     // 编辑方法
                     $(".file_edit").click(function() {
-                        var editCachetId = $(this).attr("data-target");
+                        var editCertId = $(this).attr("data-target");
                         $.ajax({
                             type: 'POST',
                             url: base + "/cert/load.html",
-                            data: {cachetId: editCachetId},
+                            data: {certId: editCertId},
                             success: function (result) {
                                 if(result.status == 1){
                                     var data = result.data;
-                                    var type = data.cachetType;
+                                    var type = data.certType;
 
                                     $('#addArea').html(initHtml);
 
@@ -189,52 +189,52 @@ $(function() {
         setUploadArea(850, 355);
 
         switch(type){
-            case "1":
-                $('#addArea').find('input[name="cachetInfo.cachetName"]').attr('disabled',true);
+            case 1:
+                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#idCard_upload').find('input[name="cachetInfo.cachetName"]').removeAttr('disabled');
+                $('#idCard_upload').find('input[name="cert.certName"]').removeAttr('disabled');
 
                 $('#idCard_upload').show();
                 var divIds = ["idCard_front", "idCard_back"];
                 var fileIds = ["fileImage_idCard_front", "fileImage_idCard_back"];
                 initEdit(divIds, fileIds, "idCard_upload", data);
                 break;
-            case "2":
-                $('#addArea').find('input[name="cachetInfo.cachetName"]').attr('disabled',true);
+            case 2:
+                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#police_upload').find('input[name="cachetInfo.cachetName"]').removeAttr('disabled');
+                $('#police_upload').find('input[name="cert.certName"]').removeAttr('disabled');
 
                 $('#police_upload').show();
                 var divIds = ["police_front", "police_back"];
                 var fileIds = ["fileImage_police_front", "fileImage_police_back"];
                 initEdit(divIds, fileIds, "police_upload", data);
                 break;
-            case "3":
-                $('#addArea').find('input[name="cachetInfo.cachetName"]').attr('disabled',true);
+            case 3:
+                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#signature_upload').find('input[name="cachetInfo.cachetName"]').removeAttr('disabled');
+                $('#signature_upload').find('input[name="cert.certName"]').removeAttr('disabled');
 
                 $('#signature_upload').show();
                 var divIds = ["signature_all"];
                 var fileIds = ["fileImage_signature"];
                 initEdit(divIds, fileIds, "signature_upload", data);
                 break;
-            case "4":
-                $('#addArea').find('input[name="cachetInfo.cachetName"]').attr('disabled',true);
+            case 4:
+                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
 
-                $('#cachet_upload').find('input[name="cachetInfo.cachetName"]').removeAttr('disabled');
+                $('#cachet_upload').find('input[name="cert.certName"]').removeAttr('disabled');
 
                 $('#cachet_upload').show();
 
@@ -252,21 +252,21 @@ $(function() {
         }
 
         if(divIds.length == 2){
-            if(data.cachetUrl1){
+            if(data.certUrl1){
                 $('#' + divIds[0]).replaceWith("<img name='aa'/>");
-                var url1 = base + '/' + data.cachetUrl1;
+                var url1 = base + '/' + data.certUrl1;
                 $('#' + parentId).find('img[name="aa"]').attr('src', url1);
             }
-            if(data.cachetUrl2){
+            if(data.certUrl2){
                 $('#' + divIds[1]).replaceWith("<img name='bb'/>");
-                var url2 = base + '/' + data.cachetUrl2;
+                var url2 = base + '/' + data.certUrl2;
                 // console.log("url2 = " + data.cachetUrl2);
                 $('#' + parentId).find('img[name="bb"]').attr('src', url2);
             }
         }else if(divIds.length == 1){
-            if(data.cachetUrl1){
+            if(data.certUrl1){
                 $('#' + divIds[0]).replaceWith("<img name='cc'/>");
-                var url1 = base + '/' + data.cachetUrl1;
+                var url1 = base + '/' + data.certUrl1;
                 $('#' + parentId).find('img[name="cc"]').attr('src', url1);
             }
 
@@ -303,8 +303,8 @@ $(function() {
             autoScaling();
         }, 300);
 
-        $('#cachetId').val(data.cachetId);
-        $('#' + parentId).find('input[name="cachetInfo.cachetName"]').val(data.cachetName);
+        $('#certId').val(data.certId);
+        $('#' + parentId).find('input[name="cert.certName"]').val(data.certName);
     }
 
     function autoScaling(){
@@ -339,12 +339,12 @@ $(function() {
         for(var i=0; i<cbox.length; i++){
             ids.push(cbox[i].id);
         }
-        var cachetIds = ids.join();
+        var certIds = ids.join();
         loading('body');
         $.ajax({
             type: "POST",
             url: base + "/cert/delete.html",
-            data: {cachetIds: cachetIds},
+            data: {certIds: certIds},
             success: function (result) {
                 if(result.status == 1){
                     removeLoading('waiting');
@@ -397,7 +397,7 @@ $(function() {
         setTimeout(setUploadArea(outerUploadWidth, innerUploadWidth), 100);
 
         switch(type){
-            case "1":
+            case 1:
                 $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
@@ -407,7 +407,7 @@ $(function() {
 
                 $('#idCard_upload').show();
                 break;
-            case "2":
+            case 2:
                 $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#signature_upload').hide();
@@ -417,7 +417,7 @@ $(function() {
 
                 $('#police_upload').show();
                 break;
-            case "3":
+            case 3:
                 $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
@@ -427,7 +427,7 @@ $(function() {
 
                 $('#signature_upload').show();
                 break;
-            case "4":
+            case 4:
                 $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
@@ -620,10 +620,10 @@ function preview(divId, fileId, insertIndex){
 function beginUpload(){
     $('#fileSubmit').removeAttr('disabled');
     var fd = new FormData($('#uploadForm')[0]);
-    var cachetId = fd.get("cachetInfo.cachetId");
-    var cachetType = fd.get("cachetInfo.cachetType");
-    if(!cachetId || cachetId == ''){// 新增
-        if(cachetType == "4"){// 上传公章（一个用户只能上传一次公章）
+    var certId = fd.get("cert.certId");
+    var certType = fd.get("cert.certType");
+    if(!certId || certId == ''){// 新增
+        if(certType == 4){// 上传公章（一个用户只能上传一次公章）
             var flag = ifExist();
             if(flag) {
                 $.notify("<em class='fa fa-check'></em> 公章只能上传一次!", {status: "warning"});
@@ -654,7 +654,7 @@ function ifExist(){
             if(data.status == 1){
                 var data = data.data;
                 for(var i in data){
-                    if(data[i].cachetType == "4"){
+                    if(data[i].certType == 4){
                         count++;
                     }
                 }
@@ -733,18 +733,18 @@ function createObj(id, type, url1, url2, name){
     return obj;
 }
 
-function showDiv(divId, cachetId){
+function showDiv(divId, certId){
     switch (divId){
         case "showDouble":
-            $('#' + divId).find('.outer').attr('id', 'targetId_' + cachetId);
+            $('#' + divId).find('.outer').attr('id', 'targetId_' + certId);
             var item = $('#' + divId).find('.outer').children('input[name="item"]');
-            item.attr('id', cachetId);
+            item.attr('id', certId);
             item.removeAttr("disabled");
             break;
         case "showSingle":
-            $('#' + divId).find('.outer').attr('id', 'targetId_' + cachetId);
+            $('#' + divId).find('.outer').attr('id', 'targetId_' + certId);
             var item = $('#' + divId).find('.outer').children('input[name="item"]');
-            item.attr('id', cachetId);
+            item.attr('id', certId);
             item.removeAttr("disabled");
             break;
     }
