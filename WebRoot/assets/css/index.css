@@ -49,12 +49,7 @@
 #fileImage_signature, #fileImage_cachet{
     display:none;
 }
-.cb{
-    position:absolute;
-    top: -2px;
-    left: 0;
-    z-index:99;
-}
+
 /* 每个图片上的操作bar */
 .file_bar{
     position: absolute;

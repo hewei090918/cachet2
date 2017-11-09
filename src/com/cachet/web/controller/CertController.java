@@ -1,9 +1,14 @@
 package com.cachet.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cachet.common.bean.Result;
+import com.cachet.web.model.Cert;
 import com.cachet.web.service.CertService;
 
 @Controller
@@ -12,5 +17,25 @@ public class CertController {
 	
     @Autowired
 	private CertService certService;
+    
+    @RequestMapping(value = "/queryAll", method = RequestMethod.POST)
+    public String queryAll() {
+    	Result result = new Result();
+    	result.setStatus(1);
+    	List<Cert> certList = certService.findAll();
+    	result.setData(certList);
+    	return "";
+    }
+    
+    @RequestMapping(value = "/load", method = RequestMethod.POST)
+    public String load() {
+    	
+    	return "";
+    }
+    
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete() {
+    	return "";
+    }
 	
 }

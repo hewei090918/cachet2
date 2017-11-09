@@ -21,8 +21,9 @@ $(function() {
     //初始化主界面
     $.ajax({
         type: 'POST',
-        url: "",
+        url: base + '/cert/queryAll.html',
         success: function (result) {
+        	console.log(result);
             if(result.status == 1){
                 var data = result.data;
 
@@ -144,7 +145,7 @@ $(function() {
                         var editCachetId = $(this).attr("data-target");
                         $.ajax({
                             type: 'POST',
-                            url: "",
+                            url: base + "/cert/load.html",
                             data: {cachetId: editCachetId},
                             success: function (result) {
                                 if(result.status == 1){
@@ -253,19 +254,19 @@ $(function() {
         if(divIds.length == 2){
             if(data.cachetUrl1){
                 $('#' + divIds[0]).replaceWith("<img name='aa'/>");
-                var url1 = '/' + data.cachetUrl1;
+                var url1 = base + '/' + data.cachetUrl1;
                 $('#' + parentId).find('img[name="aa"]').attr('src', url1);
             }
             if(data.cachetUrl2){
                 $('#' + divIds[1]).replaceWith("<img name='bb'/>");
-                var url2 = '/' + data.cachetUrl2;
+                var url2 = base + '/' + data.cachetUrl2;
                 // console.log("url2 = " + data.cachetUrl2);
                 $('#' + parentId).find('img[name="bb"]').attr('src', url2);
             }
         }else if(divIds.length == 1){
             if(data.cachetUrl1){
                 $('#' + divIds[0]).replaceWith("<img name='cc'/>");
-                var url1 = '/' + data.cachetUrl1;
+                var url1 = base + '/' + data.cachetUrl1;
                 $('#' + parentId).find('img[name="cc"]').attr('src', url1);
             }
 
@@ -342,7 +343,7 @@ $(function() {
         loading('body');
         $.ajax({
             type: "POST",
-            url: "",
+            url: base + "/cert/delete.html",
             data: {cachetIds: cachetIds},
             success: function (result) {
                 if(result.status == 1){

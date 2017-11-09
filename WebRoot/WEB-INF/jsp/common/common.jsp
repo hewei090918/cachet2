@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- Bootstrap Validator JS -->
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/bootstrapValidator/dist/js/bootstrapValidator.js"></script>
+	<!-- jquery form -->
+	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery-form/dist/jquery-form.js"></script>
 	<!-- cropper js -->
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery-cropper/dist/js/cropper.js"></script>
 	<!-- uploadPreview -->
@@ -32,6 +34,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- loading js -->
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery-loading/dist/js/loading.js"></script>
 	
+	<script type="text/javascript">
+		//获取项目路径
+	    var base = "<%=path%>" ; 
+	</script>
   </head>
   
   <body>

@@ -1,5 +1,7 @@
 package com.cachet.web.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,17 @@ public class CertServiceImpl implements CertService {
 	public void deleteCert(int certId) {
 		certDao.delete(certId);
 	}
+
+	@Override
+	public Cert get(int certId) {
+		return certDao.get(certId);
+	}
+
+	@Override
+	public List<Cert> findAll() {
+		return certDao.findAll();
+	}
+	
+	
 
 }

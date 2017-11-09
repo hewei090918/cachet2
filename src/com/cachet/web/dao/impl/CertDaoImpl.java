@@ -1,5 +1,7 @@
 package com.cachet.web.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,12 @@ public class CertDaoImpl implements CertDao {
 	}
 
 	@Override
-	public Cert findById(int certId) {
+	public Cert get(int certId) {
+		return null;
+	}
+
+	@Override
+	public List<Cert> findAll() {
 		return null;
 	}
 }
