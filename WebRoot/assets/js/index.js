@@ -24,6 +24,7 @@ $(function() {
         url: base + '/cert/queryAll.html',
         success: function (data) {
         	var result = eval('(' + data + ')');
+        	console.log(result);
             if(result.status == 1){
                 var data = result.data;
                 if(data.length > 0){

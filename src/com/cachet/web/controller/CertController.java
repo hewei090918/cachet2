@@ -21,13 +21,14 @@ public class CertController {
     @Autowired
 	private CertService certService;
     
-    @RequestMapping(value = "/queryAll", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryAll", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String queryAll() {
     	Result result = new Result();
     	result.setStatus(1);
     	List<Cert> certList = certService.findAll();
     	result.setData(certList);
     	String ss = JSONObject.fromObject(result).toString();
+//    	System.out.println(ss);
     	return ss;
     }
     

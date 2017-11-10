@@ -16,8 +16,6 @@
        	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
        	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd" >
 
-    <mvc:annotation-driven />
-    
     <!-- 开启controller注解支持，指定注入bean时spring要查找的包 -->
     <context:component-scan base-package="com.cachet.web.controller" />
         
@@ -30,5 +28,23 @@
         <property name="suffix" value=".jsp" />
         <property name="contentType" value="text/html;charset=UTF-8" />
     </bean>
+    
+    <!-- 处理请求返回json字符串的中文乱码问题 -->
+    <!-- <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven> -->
+    <mvc:annotation-driven> 
+	    <mvc:message-converters register-defaults="true"> 
+	        <bean class="com.cachet.common.util.UTF8StringHttpMessageConverter"/> 
+	    </mvc:message-converters> 
+	</mvc:annotation-driven> 
 
 </beans>
