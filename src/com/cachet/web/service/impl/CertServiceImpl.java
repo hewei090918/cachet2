@@ -26,8 +26,8 @@ public class CertServiceImpl implements CertService {
 	}
 
 	@Override
-	public void deleteCert(int certId) {
-		certDao.delete(certId);
+	public void deleteCert(Cert cert) {
+		certDao.delete(cert);
 	}
 
 	@Override

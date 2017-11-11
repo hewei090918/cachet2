@@ -10,7 +10,7 @@ public interface CertService {
 	
 	void updateCert(Cert cert);
 	
-	void deleteCert(int certId);
+	void deleteCert(Cert cert);
 	
 	Cert get(int certId);
 	

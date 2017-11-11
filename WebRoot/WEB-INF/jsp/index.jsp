@@ -148,23 +148,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label class="col-sm-2 col-md-2 control-label">证件类型:</label>
                             <div class="col-sm-10 col-md-10">
                                 <label class="radio-inline col-sm-2 col-md-2">
-                                    <input type="radio" name="cert.certType" id="idCard" value="1"/> 身份证
+                                    <input type="radio" name="certUpload.certType" id="idCard" value="1"/> 身份证
                                 </label>
                                 <label class="radio-inline col-sm-2 col-md-2">
-                                    <input type="radio" name="cert.certType" id="police" value="2"/> 警官证
+                                    <input type="radio" name="certUpload.certType" id="police" value="2"/> 警官证
                                 </label>
                                 <label class="radio-inline col-sm-2 col-md-2">
-                                    <input type="radio" name="cert.certType" id="signature" value="3"/> 电子签名
+                                    <input type="radio" name="certUpload.certType" id="signature" value="3"/> 电子签名
                                 </label>
                                 <label class="radio-inline col-sm-2 col-md-2">
-                                    <input type="radio" name="cert.certType" id="cachet" value="4"/> 电子公章
+                                    <input type="radio" name="certUpload.certType" id="cachet" value="4"/> 电子公章
                                 </label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
                                 <div class="outer_upload" id="addArea">
-                                    <input type="hidden" class="form-control" name="cert.certId" id="certId">
+                                    <input type="hidden" class="form-control" name="certUpload.certId" id="certId">
                                     <div class="row" id="idCard_upload">
                                         <div class="col-sm-6 col-md-6">
                                             <div class="inner_upload">
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="front" data-type="idCard_front" onclick="fileUpload(this);"></div>
                                                     <span class="title">身份证正面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_idCard_front" size="30" name="idCardFrontFile">
+                                                <input type="file" class="form-control" id="fileImage_idCard_front" size="30" name="certUpload.idCardFrontFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="back" data-type="idCard_back" onclick="fileUpload(this);"></div>
                                                     <span class="title">身份证反面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_idCard_back" size="30" name="idCardBackFile">
+                                                <input type="file" class="form-control" id="fileImage_idCard_back" size="30" name="certUpload.idCardBackFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="form-group col-sm-6 col-md-6">
                                                 <label class="col-sm-4 col-md-4 control-label">证件名称:</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                    <input type="text" class="form-control" name="cert.certName">
+                                                    <input type="text" class="form-control" name="certUpload.certName">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-md-4"></div>
@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="front" data-type="police_front" onclick="fileUpload(this);"></div>
                                                     <span class="title">警官证正面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_police_front" size="30" name="policeFrontFile">
+                                                <input type="file" class="form-control" id="fileImage_police_front" size="30" name="certUpload.policeFrontFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="back" data-type="police_back" onclick="fileUpload(this);"></div>
                                                     <span class="title">警官证反面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_police_back" size="30" name="policeBackFile">
+                                                <input type="file" class="form-control" id="fileImage_police_back" size="30" name="certUpload.policeBackFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -247,7 +247,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="form-group col-sm-6 col-md-6">
                                                 <label class="col-sm-4 col-md-4 control-label">证件名称:</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                    <input type="text" class="form-control" name="cert.certName">
+                                                    <input type="text" class="form-control" name="certUpload.certName">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 col-md-4"></div>
@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="both" data-type="signature_all" onclick="fileUpload(this);"></div>
                                                     <span class="title">电子签名</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_signature" size="30" name="signatureFile">
+                                                <input type="file" class="form-control" id="fileImage_signature" size="30" name="certUpload.signatureFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -277,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="form-group col-sm-6 col-md-6">
                                                 <label class="col-sm-3 col-md-3 control-label">证件名称:</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                    <input type="text" class="form-control" name="cert.certName">
+                                                    <input type="text" class="form-control" name="certUpload.certName">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 col-md-3"></div>
@@ -291,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="both" data-type="cachet_all" onclick="fileUpload(this);"></div>
                                                     <span class="title">电子公章</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_cachet" size="30" name="cachetFile">
+                                                <input type="file" class="form-control" id="fileImage_cachet" size="30" name="certUpload.cachetFile">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -307,7 +307,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="form-group col-sm-6 col-md-6">
                                                 <label class="col-sm-3 col-md-3 control-label">证件名称:</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                    <input type="text" class="form-control" name="cert.certName">
+                                                    <input type="text" class="form-control" name="certUpload.certName">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 col-md-3"></div>

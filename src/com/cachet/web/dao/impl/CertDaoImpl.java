@@ -35,8 +35,8 @@ public class CertDaoImpl implements CertDao {
 	}
 
 	@Override
-	public void delete(int certId) {
-		getSession().delete(certId);
+	public void delete(Cert cert) {
+		getSession().delete(cert);
 	}
 
 	@Override

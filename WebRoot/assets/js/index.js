@@ -24,7 +24,7 @@ $(function() {
         url: base + '/cert/queryAll.html',
         success: function (data) {
         	var result = eval('(' + data + ')');
-        	console.log(result);
+//        	console.log(result);
             if(result.status == 1){
                 var data = result.data;
                 if(data.length > 0){
@@ -32,7 +32,7 @@ $(function() {
                     //先整合首页需要展示的所有框框
                     for(var i in data){
                         var type = data[i].certType;
-                        console.log("type = " + type);
+//                        console.log("type = " + type);
                         switch (type){
                             case 1:
                                 arr.push(createObj(data[i].certId, data[i].certType, data[i].certUrl1, data[i].certUrl2, data[i].certName));
@@ -148,7 +148,8 @@ $(function() {
                             type: 'POST',
                             url: base + "/cert/load.html",
                             data: {certId: editCertId},
-                            success: function (result) {
+                            success: function (data) {
+                            	var result = eval('(' + data + ')');
                                 if(result.status == 1){
                                     var data = result.data;
                                     var type = data.certType;
@@ -191,12 +192,12 @@ $(function() {
 
         switch(type){
             case 1:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#idCard_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#idCard_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#idCard_upload').show();
                 var divIds = ["idCard_front", "idCard_back"];
@@ -204,12 +205,12 @@ $(function() {
                 initEdit(divIds, fileIds, "idCard_upload", data);
                 break;
             case 2:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#police_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#police_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#police_upload').show();
                 var divIds = ["police_front", "police_back"];
@@ -217,12 +218,12 @@ $(function() {
                 initEdit(divIds, fileIds, "police_upload", data);
                 break;
             case 3:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#signature_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#signature_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#signature_upload').show();
                 var divIds = ["signature_all"];
@@ -230,12 +231,12 @@ $(function() {
                 initEdit(divIds, fileIds, "signature_upload", data);
                 break;
             case 4:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
 
-                $('#cachet_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#cachet_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#cachet_upload').show();
 
@@ -305,7 +306,7 @@ $(function() {
         }, 300);
 
         $('#certId').val(data.certId);
-        $('#' + parentId).find('input[name="cert.certName"]').val(data.certName);
+        $('#' + parentId).find('input[name="certUpload.certName"]').val(data.certName);
     }
 
     function autoScaling(){
@@ -346,7 +347,8 @@ $(function() {
             type: "POST",
             url: base + "/cert/delete.html",
             data: {certIds: certIds},
-            success: function (result) {
+            success: function (data) {
+            	var result = eval('(' + data + ')');
                 if(result.status == 1){
                     removeLoading('waiting');
                     parent.location.reload();
@@ -372,10 +374,11 @@ $(function() {
             $('.title').css("left", 0.35*innerUploadWidth);
         }, 300);
 
-        $('input[name="cert.certType"]').on('click', function () {
+        $('input[name="certUpload.certType"]').on('click', function () {
             $('#addArea').html(initHtml);
 
             var type = $(this).attr('value');
+            console.log("type = " + type);
             typeChecked(type);
 
             //初始化单选按钮的状态（默认全部可选）
@@ -396,45 +399,44 @@ $(function() {
         var outerUploadWidth = parseFloat($('.outer_upload').css("width"));
         var innerUploadWidth = parseFloat($('.inner_upload').css("width"));
         setTimeout(setUploadArea(outerUploadWidth, innerUploadWidth), 100);
-
         switch(type){
-            case 1:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+            case '1':
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#idCard_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#idCard_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#idCard_upload').show();
                 break;
-            case 2:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+            case '2':
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#signature_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#police_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#police_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#police_upload').show();
                 break;
-            case 3:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+            case '3':
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#cachet_upload').hide();
 
-                $('#signature_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#signature_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#signature_upload').show();
                 break;
-            case 4:
-                $('#addArea').find('input[name="cert.certName"]').attr('disabled',true);
+            case '4':
+                $('#addArea').find('input[name="certUpload.certName"]').attr('disabled',true);
                 $('#idCard_upload').hide();
                 $('#police_upload').hide();
                 $('#signature_upload').hide();
 
-                $('#cachet_upload').find('input[name="cert.certName"]').removeAttr('disabled');
+                $('#cachet_upload').find('input[name="certUpload.certName"]').removeAttr('disabled');
 
                 $('#cachet_upload').show();
                 break;
@@ -471,7 +473,7 @@ var arr = new Array(6);
 
 function fileUpload(div) {
 
-    $('input[name="cert.certType"]').on('click', function () {
+    $('input[name="certUpload.certType"]').on('click', function () {
         fns = new Array();
         blobMap = {};
     });
@@ -621,8 +623,8 @@ function preview(divId, fileId, insertIndex){
 function beginUpload(){
     $('#fileSubmit').removeAttr('disabled');
     var fd = new FormData($('#uploadForm')[0]);
-    var certId = fd.get("cert.certId");
-    var certType = fd.get("cert.certType");
+    var certId = fd.get("certUpload.certId");
+    var certType = fd.get("certUpload.certType");
     if(!certId || certId == ''){// 新增
         if(certType == 4){// 上传公章（一个用户只能上传一次公章）
             var flag = ifExist();
@@ -638,7 +640,7 @@ function beginUpload(){
         fd.append("'" + key + "'", blobMap[key]);
     }
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "", true);
+    xhr.open('POST', base + "/cert/upload.html", true);
     xhr.send(fd);
 
     $("#cachet_modal").modal('hide');

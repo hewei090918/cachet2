@@ -10,7 +10,7 @@ public interface CertDao {
 	
 	void update(Cert cert);
 	
-	void delete(int certId);
+	void delete(Cert cert);
 	
 	Cert get(int certId);
 	
