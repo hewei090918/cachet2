@@ -636,10 +636,7 @@ function beginUpload(){
         var key = fns[i];
         fd.append("'" + key + "'", blobMap[key]);
     }
-    console.log("certType = " + certType);
-    console.log("certName = " + fd.get("certName"));
-    console.log(fd.get("cachetFile"));
-    return;
+    
     var xhr = new XMLHttpRequest();
     xhr.open('POST', base + "/cert/upload.html", true);
     xhr.send(fd);

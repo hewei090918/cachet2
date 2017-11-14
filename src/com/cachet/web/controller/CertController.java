@@ -20,12 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cachet.common.bean.Result;
 import com.cachet.common.util.StringUtils;
-import com.cachet.web.bean.FileBean;
-import com.cachet.web.bean.upload.CertUpload;
 import com.cachet.web.model.Cert;
 import com.cachet.web.service.CertService;
 
@@ -64,7 +64,11 @@ public class CertController {
     }
     
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(HttpServletRequest request,HttpServletResponse response,@ModelAttribute CertUpload certUpload) {
+    public
+    @ResponseBody String upload(@RequestParam MultipartFile idCardFrontFile, @RequestParam MultipartFile idCardBackFile,
+    		@RequestParam MultipartFile policeFrontFile, @RequestParam MultipartFile policeBackFile,
+    		@RequestParam MultipartFile signatureFile, @RequestParam MultipartFile cachetFile,
+    		@ModelAttribute Cert cert, HttpServletRequest request,HttpServletResponse response) {
     	Result result = new Result();
     	SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
     	String dateName = formatter.format(Calendar.getInstance().getTime());
@@ -78,54 +82,56 @@ public class CertController {
         }
         
         String fileName = "", url1 = "", url2 = "";
-    	switch(certUpload.getCertType()) {
+        
+        int certType = cert.getCertType();
+    	switch(certType) {
     		case 1:
-    			if(certUpload.getIdCardFrontFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getIdCardFrontFile());
+    			if(idCardFrontFile != null){
+                    fileName = uploadFile(savePath, idCardFrontFile);
                     url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getIdCardBackFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getIdCardBackFile());
+                if(idCardBackFile != null){
+                    fileName = uploadFile(savePath, idCardBackFile);
                     url2 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getCertId() != null)
-                    updateRecord(certUpload, url1, url2);
+                if(cert.getCertId() != null)
+                    updateRecord(cert, url1, url2);
                 else
-                    saveRecord(certUpload, url1, url2);
+                    saveRecord(cert, url1, url2);
     			break;
     		case 2:
-    			if(certUpload.getPoliceFrontFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getPoliceFrontFile());
+    			if(policeFrontFile != null){
+                    fileName = uploadFile(savePath, policeFrontFile);
                     url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getPoliceBackFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getPoliceBackFile());
+                if(policeBackFile != null){
+                    fileName = uploadFile(savePath, policeBackFile);
                     url2 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getCertId() != null)
-                    updateRecord(certUpload, url1, url2);
+                if(cert.getCertId() != null)
+                    updateRecord(cert, url1, url2);
                 else
-                    saveRecord(certUpload, url1, url2);
+                    saveRecord(cert, url1, url2);
     			break;
     		case 3:
-    			if(certUpload.getSignatureFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getSignatureFile());
+    			if(signatureFile != null){
+                    fileName = uploadFile(savePath, signatureFile);
                     url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getCertId() != null)
-                    updateRecord(certUpload, url1, url2);
+                if(cert.getCertId() != null)
+                    updateRecord(cert, url1, url2);
                 else
-                    saveRecord(certUpload, url1, url2);
+                    saveRecord(cert, url1, url2);
     			break;
     		case 4:
-    			if(certUpload.getCachetFile() != null){
-                    fileName = uploadFile(savePath, certUpload.getCachetFile());
+    			if(cachetFile != null){
+                    fileName = uploadFile(savePath, cachetFile);
                     url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
                 }
-                if(certUpload.getCertId() != null)
-                    updateRecord(certUpload, url1, url2);
+                if(cert.getCertId() != null)
+                    updateRecord(cert, url1, url2);
                 else
-                    saveRecord(certUpload, url1, url2);
+                    saveRecord(cert, url1, url2);
     			break;
     	}
     	result.setStatus(1);
@@ -133,9 +139,9 @@ public class CertController {
     	return ss;
     }
     
-    public String uploadFile(String savePath, FileBean uploadFile){
+    public String uploadFile(String savePath, MultipartFile uploadFile){
         //文件名转换
-        String originName = uploadFile.getFileName();
+        String originName = uploadFile.getName();
         String fileName = rename(originName);
         //文件所在的路径
         String source = savePath + "/" + fileName;
@@ -161,10 +167,7 @@ public class CertController {
         return fileName;
     }
     
-    public void saveRecord(CertUpload certUpload, String url1, String url2){
-    	Cert cert = new Cert();
-    	cert.setCertName(certUpload.getCertName());
-    	cert.setCertType(certUpload.getCertType());
+    public void saveRecord(Cert cert, String url1, String url2){
     	cert.setCertUrl1(url1);
     	cert.setCertUrl2(url2);
     	cert.setCreateTime(new Date());
@@ -172,9 +175,9 @@ public class CertController {
         certService.saveCert(cert);
     }
 
-    public void updateRecord(CertUpload certUpload, String url1, String url2){
-        Cert record = certService.get(certUpload.getCertId());
-        record.setCertName(certUpload.getCertName());
+    public void updateRecord(Cert cert, String url1, String url2){
+        Cert record = certService.get(cert.getCertId());
+        record.setCertName(cert.getCertName());
         if(StringUtils.isNotNullOrEmpty(url1))
             record.setCertUrl1(url1);
         if(StringUtils.isNotNullOrEmpty(url2))
