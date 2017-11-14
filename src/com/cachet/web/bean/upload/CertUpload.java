@@ -1,14 +1,12 @@
 package com.cachet.web.bean.upload;
 
 import com.cachet.web.bean.FileBean;
+import com.cachet.web.model.Cert;
 
-public class CertUpload {
+public class CertUpload extends Cert{
 
-	private Integer certId;
+	private static final long serialVersionUID = 8155942561770863133L;
 	
-	private String certName;
-	
-	private Integer certType;
 	//身份证正面
 	private FileBean idCardFrontFile;
 	//身份证反面
@@ -21,30 +19,6 @@ public class CertUpload {
     private FileBean signatureFile;
     //电子公章
     private FileBean cachetFile;
-
-	public Integer getCertId() {
-		return certId;
-	}
-
-	public void setCertId(Integer certId) {
-		this.certId = certId;
-	}
-
-	public String getCertName() {
-		return certName;
-	}
-
-	public void setCertName(String certName) {
-		this.certName = certName;
-	}
-
-	public Integer getCertType() {
-		return certType;
-	}
-
-	public void setCertType(Integer certType) {
-		this.certType = certType;
-	}
 
 	public FileBean getIdCardFrontFile() {
 		return idCardFrontFile;
