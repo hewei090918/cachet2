@@ -64,20 +64,20 @@ $(function() {
                         if(type == 1 || type == 2){
                             if(arr[i].url1){
                                 $('#targetId_' + arr[i].id).find('.showFront').replaceWith("<img name='aa'/>");
-                                var src = '/' + arr[i].url1;
+                                var src = base + '/' + arr[i].url1;
                                 $img = $('#targetId_' + arr[i].id).find('img[name="aa"]');
                                 $img.attr('src', src);
                             }
                             if(arr[i].url2){
                                 $('#targetId_' + arr[i].id).find('.showBack').replaceWith("<img name='bb'/>");
-                                var src = '/' + arr[i].url2;
+                                var src = base + '/' + arr[i].url2;
                                 $img = $('#targetId_' + arr[i].id).find('img[name="bb"]');
                                 $img.attr('src', src);
                             }
                         } else if(type == 3 || type == 4){
                             if(arr[i].url1){
                                 $('#targetId_' + arr[i].id).find('.showOne').replaceWith("<img name='cc'/>")
-                                var src = '/' + arr[i].url1;
+                                var src = base + '/' + arr[i].url1;
                                 $img = $('#targetId_' + arr[i].id).find('img[name="cc"]');
                                 $img.attr('src', src);
                             }
@@ -622,11 +622,13 @@ function beginUpload(){
     var fd = new FormData($('#uploadForm')[0]);
     var certId = fd.get("certId");
     var certType = fd.get("certType");
+    console.log("certId = " + certId);
+    console.log("certType = " + certType);
     if(!certId || certId == ''){// 新增
         if(certType == 4){// 上传公章（一个用户只能上传一次公章）
             var flag = ifExist();
             if(flag) {
-                $.notify("<em class='fa fa-check'></em> 公章只能上传一次!", {status: "warning"});
+                $.message.alert("公章只能上传一次!");
                 return false;
             }
         }
@@ -636,7 +638,7 @@ function beginUpload(){
         var key = fns[i];
         fd.append("'" + key + "'", blobMap[key]);
     }
-    
+    return;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', base + "/cert/upload.html", true);
     xhr.send(fd);
@@ -650,10 +652,11 @@ function ifExist(){
     $.ajax({
         type: 'POST',
         async : false,//必选
-        url: "",
-        success: function (data) {
-            if(data.status == 1){
-                var data = data.data;
+        url: base + '/cert/queryAll.html',
+        success: function (result) {
+        	var result = eval('(' + result + ')');
+            if(result.status == 1){
+                var data = result.data;
                 for(var i in data){
                     if(data[i].certType == 4){
                         count++;
@@ -662,6 +665,7 @@ function ifExist(){
             }
         }
     });
+    console.log("count = " + count);
     if(count > 0)
         return true;
     else

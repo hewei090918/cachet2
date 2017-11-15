@@ -1,11 +1,8 @@
 package com.cachet.web.bean.upload;
 
 import com.cachet.web.bean.FileBean;
-import com.cachet.web.model.Cert;
 
-public class CertUpload extends Cert{
-
-	private static final long serialVersionUID = 8155942561770863133L;
+public class CertUpload {
 	
 	//身份证正面
 	private FileBean idCardFrontFile;
