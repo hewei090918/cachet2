@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cachet.common.bean.Result;
+import com.cachet.common.properies.PropertiesItems;
 import com.cachet.common.util.StringUtils;
 import com.cachet.web.model.Cert;
 import com.cachet.web.service.CertService;
@@ -33,11 +35,16 @@ import com.cachet.web.service.CertService;
 @RequestMapping("/cert")
 public class CertController {
 	
+	private Logger logger = Logger.getLogger(getClass());
+	
 	//文件保存目录路径
-    public static final String UPLOAD_FILEPATH = "upload";
+    public String uploadFilePath = "cert_img";
 	
     @Autowired
 	private CertService certService;
+    
+    @Autowired
+    private PropertiesItems propertiesItems;
     
     @RequestMapping(value = "/queryAll", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String queryAll() {
@@ -73,7 +80,8 @@ public class CertController {
     	SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
     	String dateName = formatter.format(Calendar.getInstance().getTime());
     	String realPath = request.getServletContext().getRealPath("/");
-    	String savePath = realPath + UPLOAD_FILEPATH + "/" + dateName;
+//    	String savePath = propertiesItems.getImgPath() + "/" + dateName;
+    	String savePath = realPath + uploadFilePath + "/" + dateName;
     	System.out.println("savePath = " + savePath);
     	//判断上传文件的保存目录是否存在
         File saveDir = new File(savePath);
@@ -88,11 +96,11 @@ public class CertController {
     		case 1:
     			if(idCardFrontFile != null){
                     fileName = uploadFile(savePath, idCardFrontFile);
-                    url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url1 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(idCardBackFile != null){
                     fileName = uploadFile(savePath, idCardBackFile);
-                    url2 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url2 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(cert.getCertId() != null)
                     updateRecord(cert, url1, url2);
@@ -102,11 +110,11 @@ public class CertController {
     		case 2:
     			if(policeFrontFile != null){
                     fileName = uploadFile(savePath, policeFrontFile);
-                    url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url1 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(policeBackFile != null){
                     fileName = uploadFile(savePath, policeBackFile);
-                    url2 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url2 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(cert.getCertId() != null)
                     updateRecord(cert, url1, url2);
@@ -116,7 +124,7 @@ public class CertController {
     		case 3:
     			if(signatureFile != null){
                     fileName = uploadFile(savePath, signatureFile);
-                    url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url1 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(cert.getCertId() != null)
                     updateRecord(cert, url1, url2);
@@ -126,7 +134,7 @@ public class CertController {
     		case 4:
     			if(cachetFile != null){
                     fileName = uploadFile(savePath, cachetFile);
-                    url1 = "/" + UPLOAD_FILEPATH + "/" + dateName + "/" + fileName;
+                    url1 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                 }
                 if(cert.getCertId() != null)
                     updateRecord(cert, url1, url2);
@@ -145,8 +153,9 @@ public class CertController {
         String fileName = rename(originName);
         //文件所在的路径
         String source = savePath + "/" + fileName;
+        
         try{
-            System.out.println("---上传证件开始---");
+        	logger.info("---上传证件开始---");
             InputStream inputStream = uploadFile.getInputStream();
             OutputStream outputStream = new FileOutputStream(new File(source));
 
@@ -158,10 +167,10 @@ public class CertController {
             // 关闭流
             outputStream.close();
             inputStream.close();
-            System.out.println("---上传证件结束---");
+            logger.info("---上传证件结束---");
         }catch (IOException e){
             e.printStackTrace();
-            System.out.println("---上传证件失败---");
+            logger.error("---上传证件失败---");
         }
 
         return fileName;
