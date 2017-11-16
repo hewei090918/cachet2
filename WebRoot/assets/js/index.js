@@ -625,10 +625,10 @@ function beginUpload(){
     console.log("certId = " + certId);
     console.log("certType = " + certType);
     if(!certId || certId == ''){// 新增
-        if(certType == 4){// 上传公章（一个用户只能上传一次公章）
+        if(certType == 4){// 上传公章
             var flag = ifExist();
             if(flag) {
-                $.message.alert("公章只能上传一次!");
+                toastr.warning("公章只能上传一次!");
                 return false;
             }
         }

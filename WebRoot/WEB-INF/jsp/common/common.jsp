@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>assets/plugins/jquery-cropper/dist/css/cropper.min.css">
 	<!-- loading css -->
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>assets/plugins/jquery-loading/dist/css/loading.css">
+	<!-- toastr css -->
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>assets/plugins/toastr/dist/css/toastr.css">
 	
 	<!-- jQuery -->
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery/jquery.min.js"></script>
@@ -33,6 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery-uploadPreview/js/uploadPreview.js"></script>
 	<!-- loading js -->
 	<script type="text/javascript" src="<%=basePath%>assets/plugins/jquery-loading/dist/js/loading.js"></script>
+	<!-- toastr js -->
+	<script type="text/javascript" src="<%=basePath%>assets/plugins/toastr/dist/js/toastr.min.js"></script>
 	
 	<script type="text/javascript">
 		//获取项目路径
