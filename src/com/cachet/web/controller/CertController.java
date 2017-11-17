@@ -78,9 +78,11 @@ public class CertController {
     	Result result = new Result();
     	SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
     	String dateName = formatter.format(Calendar.getInstance().getTime());
+    	//上传至项目部署路径下（Tomcat服务器）
     	String realPath = request.getServletContext().getRealPath("/"); 
-//    	String savePath = propertiesItems.getImgPath() + "/" + dateName;
     	String savePath = realPath + uploadFilePath + "/" + dateName;
+    	//上传到本地磁盘或网络共享盘
+//    	String savePath = propertiesItems.getImgPath() + "/" + dateName;
     	System.out.println("savePath = " + savePath);
     	//判断上传文件的保存目录是否存在
         File saveDir = new File(savePath);
@@ -104,15 +106,13 @@ public class CertController {
                 	FileItem item = (FileItem) itr.next();
                 	if (!item.isFormField()) { //如果提交的是图片
                 		if(StringUtil.isNotNullOrEmpty(item.getName())){
-                			System.out.println("item name = " + item.getName());
                 			File fullFile = new File(item.getName()); //获取提交的文件
                        	 	String originName = fullFile.getName();
                             fileName = rename(originName);
-                            savedFile = new File(savePath, fileName); //在项目下新建该文件
+                            savedFile = new File(savePath, fileName);
                             
                             if(StringUtil.equals(item.getName(), "blob")) {//获取截图路径
                             	String fName = item.getFieldName();
-                            	System.out.println("fieldName = " + fName);
                             	if(StringUtil.equals(fName, "\'idCardBackFile\'") || StringUtil.equals(fName, "\'policeBackFile\'")) {
                             		url2 = "/" + uploadFilePath + "/" + dateName + "/" + fileName;
                             	}else {
