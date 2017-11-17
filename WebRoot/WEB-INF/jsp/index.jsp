@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="front" data-type="idCard_front" onclick="fileUpload(this);"></div>
                                                     <span class="title">身份证正面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_idCard_front" size="30" name="idCardFrontFile">
+                                                <input type="file" class="form-control" id="fileImage_idCard_front" size="30" name="idCardFrontFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="back" data-type="idCard_back" onclick="fileUpload(this);"></div>
                                                     <span class="title">身份证反面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_idCard_back" size="30" name="idCardBackFile">
+                                                <input type="file" class="form-control" id="fileImage_idCard_back" size="30" name="idCardBackFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="front" data-type="police_front" onclick="fileUpload(this);"></div>
                                                     <span class="title">警官证正面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_police_front" size="30" name="policeFrontFile">
+                                                <input type="file" class="form-control" id="fileImage_police_front" size="30" name="policeFrontFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="back" data-type="police_back" onclick="fileUpload(this);"></div>
                                                     <span class="title">警官证反面</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_police_back" size="30" name="policeBackFile">
+                                                <input type="file" class="form-control" id="fileImage_police_back" size="30" name="policeBackFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="both" data-type="signature_all" onclick="fileUpload(this);"></div>
                                                     <span class="title">电子签名</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_signature" size="30" name="signatureFile">
+                                                <input type="file" class="form-control" id="fileImage_signature" size="30" name="signatureFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>
@@ -291,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="both" data-type="cachet_all" onclick="fileUpload(this);"></div>
                                                     <span class="title">电子公章</span>
                                                 </div>
-                                                <input type="file" class="form-control" id="fileImage_cachet" size="30" name="cachetFile">
+                                                <input type="file" class="form-control" id="fileImage_cachet" size="30" name="cachetFile" accept="image/*">
                                             </div>
                                             <div class="jy-up-ch">
                                                 <a href="javascript:void(0);" class="bch bch1" onclick="rotateLeft(this);"> </a>

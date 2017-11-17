@@ -636,9 +636,10 @@ function beginUpload(){
 
     for(var i in fns){
         var key = fns[i];
+        console.log(blobMap[key]);
         fd.append("'" + key + "'", blobMap[key]);
     }
-    return;
+//    return;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', base + "/cert/upload.html", true);
     xhr.send(fd);
